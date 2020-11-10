@@ -2,23 +2,79 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ASPproject.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPproject.Controllers
 {
     public class StudentController : Controller
     {
-        public string Index(int id, string name)
+        private StudentDbContext _dbc = new StudentDbContext();
+
+        public IActionResult Index()
         {
-            return "Hello from Student Controller  id = " + id
-                // + " name " + Request.Query["name"]
-                + " name =  " + name
-                ;
+            List<Student> students = _dbc.Students.ToList();
+
+            return View(students);
         }
 
-        public string GetDetails()
+        public IActionResult GetDetails(int id)
         {
-            return "GetDetails() has been invoked!";
+            Student stEf = _dbc.Students.Where(s => s.Id == id).FirstOrDefault();
+
+            return View(stEf);
+        }
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create( Student student )
+        {
+            student.Id = _dbc.Students.Last().Id + 1;
+            _dbc.Students.Add(student);
+            _dbc.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult Edit(int id)
+        {
+            Student stEf = _dbc.Students.Where(s => s.Id == id).FirstOrDefault();
+
+            return View(stEf);
+        }
+        [HttpPost]
+        public IActionResult Edit(Student student)
+        {
+            Student st = _dbc.Students.Where(s => s.Id == student.Id).FirstOrDefault();
+
+            if (st != null)
+            {
+                st.Name = student.Name;
+                st.Email = student.Email;
+
+                _dbc.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            Student stEf = _dbc.Students.Where(s => s.Id == id).FirstOrDefault();
+
+            return View(stEf);
+        }
+        [HttpPost]
+        public IActionResult Delete(Student student)
+        {
+            Student stEf = _dbc.Students.Where(s => s.Id == student.Id).FirstOrDefault();
+            _dbc.Students.Remove(stEf);
+            _dbc.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }
