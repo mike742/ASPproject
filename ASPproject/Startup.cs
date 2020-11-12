@@ -56,7 +56,7 @@ namespace ASPproject
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Student}/{action=Index}/{id?}");
+                    template: "{controller=Department}/{action=Index}/{id?}");
             });
         }
     }

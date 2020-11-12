@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ASPproject.Models.Department>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<table style="width: 600px">
+    
+    @foreach (var i in Model)
+    {
+    <tr>
+        <td>  @i.Id</td>
+        <td>  @i.Name</td>
+        <td>  
+            @Html.ActionLink("Details", "Index", "Employee", new { id = i.Id })
+        </td>
+    </tr>
+    }
+
+</table>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Index", "Employee", new { id=item.Id }) | 
+                <a asp-controller="Employee" asp-action="Index" asp-route-id="@item.Id">
+                    Details #2
+                </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

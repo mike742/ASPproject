@@ -10,6 +10,7 @@ namespace ASPproject.Controllers
     {
         public string Index(int id, string name)
         {
+
             return "Hello from Student Controller  id = " + id
                 // + " name " + Request.Query["name"]
                 + " name =  " + name
