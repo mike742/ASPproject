@@ -1,0 +1,10 @@
+﻿.customDiv {
+    margin-top: 25px;
+    /*background-color: aquamarine;*/
+    min-height: 300px;
+}
+
+img {
+    margin: auto;
+    width: 50%;   
+}
