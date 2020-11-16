@@ -8,7 +8,12 @@ namespace ASPproject.Controllers
 {
     public class StudentController : Controller
     {
-        private StudentDbContext _dbc = new StudentDbContext();
+        private StudentDbContext _dbc; // = new StudentDbContext();
+
+        public StudentController(StudentDbContext context)
+        {
+            _dbc = context;
+        }
 
         public IActionResult Index()
         {

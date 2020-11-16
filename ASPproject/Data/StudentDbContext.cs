@@ -7,10 +7,14 @@ namespace ASPproject.Data
     {
         public DbSet<Student> Students { set; get; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseMySql(@"server=localhost;user=root;password=;database=aspdb;");
-            base.OnConfiguring(optionsBuilder);
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseMySql(@"server=localhost;user=root;password=;database=aspdb;");
+        //    base.OnConfiguring(optionsBuilder);
+        //}
+
+        public StudentDbContext(DbContextOptions<StudentDbContext> option)
+            : base(option)
+        { }
     }
 }
