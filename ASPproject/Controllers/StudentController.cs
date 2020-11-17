@@ -2,23 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ASPproject.Data;
+using ASPproject.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPproject.Controllers
 {
     public class StudentController : Controller
     {
-        public string Index(int id, string name)
+        private readonly SCIDbContext _dbc = new SCIDbContext();
+        public IActionResult Index()
         {
-            return "Hello from Student Controller  id = " + id
-                // + " name " + Request.Query["name"]
-                + " name =  " + name
-                ;
+            List<Student> students = _dbc.Students.ToList();
+
+            return View(students);
         }
 
-        public string GetDetails()
+        public IActionResult Details(int id)
         {
-            return "GetDetails() has been invoked!";
+            Student student = _dbc.Students.Where(s => s.Id == id).FirstOrDefault();
+
+            List<Course> courses = _dbc.StudentCourses
+                .Where(sc => sc.StudentId == id)
+                .Select(c => c.Course)
+                .ToList();
+
+            ViewBag.Courses = courses;
+
+            return View(student);
         }
     }
 }
