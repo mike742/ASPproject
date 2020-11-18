@@ -21,5 +21,13 @@ namespace ASPproject.Controllers
 
             return View(instructors);
         }
+
+
+        public IActionResult Create()
+        {
+            // Courses
+
+            return View();
+        }
     }
 }

@@ -31,5 +31,28 @@ namespace ASPproject.Controllers
 
             return View(student);
         }
+
+        public IActionResult Edit(int id)
+        {
+            Student student = _dbc.Students.Where(s => s.Id == id).FirstOrDefault();
+
+            List<Course> courses = _dbc.StudentCourses
+                .Where(sc => sc.StudentId == id)
+                .Select(c => c.Course)
+                .ToList();
+
+            ViewBag.Courses = courses;
+
+            ViewBag.AvailableCourses = _dbc.Courses
+                .Except(courses)
+                .ToList();
+
+            return View(student);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
