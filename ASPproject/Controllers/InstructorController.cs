@@ -22,12 +22,36 @@ namespace ASPproject.Controllers
             return View(instructors);
         }
 
-
         public IActionResult Create()
         {
-            // Courses
+            ViewBag.Courses = _dbc.Courses.ToList();
 
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Create(Instructor instructor, int courseId)
+        {
+            instructor.Id = _dbc.Instructors.Last().Id + 1;
+            instructor.Course = _dbc.Courses.Find(courseId);
+
+            _dbc.Instructors.Add(instructor);
+            _dbc.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            ViewBag.Courses = _dbc.Courses.ToList();
+            Instructor instructor = _dbc.Instructors
+                .Where(i => i.Id == id)
+                .FirstOrDefault();
+
+            ViewBag.CourseId = instructor.Course.Id;
+
+            return View(instructor);
+        }
+
     }
 }

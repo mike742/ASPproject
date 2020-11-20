@@ -11,7 +11,7 @@ namespace ASPproject.Controllers
     public class StudentCourseController : Controller
     {
         private readonly SCIDbContext _dbc = new SCIDbContext();
-
+        [HttpPost]
         public IActionResult AddCourse(int studentId, int courseId)
         {
             //StudentId=1&CourseId=3 

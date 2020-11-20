@@ -44,7 +44,7 @@
 <div>
     <h4>Add Course:</h4>
 
-    @using (Html.BeginForm("AddCourse", "StudentCourse", FormMethod.Get))
+    @using (Html.BeginForm("AddCourse", "StudentCourse", FormMethod.Post))
     {
         @Html.Hidden("StudentId", Model.Id)
         @Html.DropDownList("CourseId",
